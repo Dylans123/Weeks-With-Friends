@@ -60,29 +60,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         descText.setText(desc);
         dateText.setText(date);
 
-        Button completed = (Button)findViewById(R.id.complete);
-        completed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            db.collection("cities").document("DC")
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error deleting document", e);
-                        }
-                    });
-            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(i);
-            }
-        });
-
         Button delete = (Button)findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override

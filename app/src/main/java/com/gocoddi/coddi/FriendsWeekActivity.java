@@ -42,7 +42,6 @@ public class FriendsWeekActivity extends AppCompatActivity {
     private List<String> dateList = new ArrayList<>();
     private List<String> dayList = new ArrayList<>();
     private String friendId;
-    private String friendEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,8 @@ public class FriendsWeekActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        friendId = getIntent().getStringExtra("id");
+        friendId =  getIntent().getStringExtra("id");
+        System.out.println(friendId);
 
 
         initDays();
@@ -67,7 +67,6 @@ public class FriendsWeekActivity extends AppCompatActivity {
         dayList = dayHelper();
 
         for (int i = 0; i < dateList.size(); ++i) {
-            System.out.println(dateList.get(i));
             initEvents(dateList.get(i));
         }
     }
@@ -138,7 +137,7 @@ public class FriendsWeekActivity extends AppCompatActivity {
                                             i.putExtra("title", title);
                                             i.putExtra("desc", desc);
                                             i.putExtra("date", date);
-                                            i.putExtra("id", id);
+                                            i.putExtra("id", friendId);
                                             startActivity(i);
                                         }
                                     });
@@ -243,5 +242,17 @@ public class FriendsWeekActivity extends AppCompatActivity {
             default:
                 return 0;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("id", friendId);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        friendId = savedInstanceState.getString("id");
     }
 }

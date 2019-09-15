@@ -4,7 +4,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,5 +55,14 @@ public class FriendsWeekEventActivity extends AppCompatActivity {
         titleText.setText(title);
         descText.setText(desc);
         dateText.setText(date);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        Intent i = new Intent(FriendsWeekEventActivity.this, FriendsWeekActivity.class);
+        i.putExtra("id",id);
+        startActivity(i);
+        finish();
+        return true;
     }
 }
