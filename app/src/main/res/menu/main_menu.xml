@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_btn"
+        android:icon="@drawable/add_box_black"
+        android:title="Add"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/friends_btn"
+        android:icon="@drawable/friends_black"
+        android:title="Friends"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/friendsAdd_btn"
+        android:icon="@drawable/friends_add_black"
+        android:title="Add Friends"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/manageFriends_btn"
+        android:icon="@drawable/friends_black"
+        android:title="Manage Friends"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/logout_btn"
+        android:icon="@drawable/friends_add_black"
+        android:title="Logout"
+        app:showAsAction="ifRoom"
+        />
+</menu>

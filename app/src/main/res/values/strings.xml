@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Coddi</string>
+    <string name="sign_up"><b><font color="#C4C4C4">Don\'t have an account yet? </font><font color="#91F291">Sign up</font></b></string>
+    <string name="event">Event\nDescription of the event</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
