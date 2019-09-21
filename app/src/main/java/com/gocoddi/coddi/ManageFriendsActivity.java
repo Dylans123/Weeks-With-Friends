@@ -132,10 +132,16 @@ public class ManageFriendsActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful()) {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String friendId = document.getString("id");
                                                     db.collection("users")
                                                         .document(user.getUid())
                                                         .collection("friends")
                                                         .document(document.getId())
+                                                        .delete();
+                                                    db.collection("users")
+                                                        .document(friendId)
+                                                        .collection("friends")
+                                                        .document(user.getUid())
                                                         .delete();
                                                 }
                                             }

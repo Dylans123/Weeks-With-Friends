@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -78,35 +79,37 @@ public class AddFriendsActivity extends AppCompatActivity {
             userInfo.put("id", user.getUid());
             userInfo.put("confirmed", false);
 
-            db.collection("users").document(friendId).collection("friends")
-                .add(userInfo)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            db.collection("users").document(friendId).collection("friends").document(user.getUid())
+                .set(userInfo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                        Log.w(TAG, "Error writing document", e);
                     }
                 });
-            db.collection("users").document(user.getUid()).collection("friends")
-                .add(friendInfo)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            db.collection("users").document(user.getUid()).collection("friends").document(friendId)
+                .set(friendInfo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                        Log.w(TAG, "Error writing document", e);
                     }
                 });
-
+            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 
