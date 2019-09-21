@@ -138,28 +138,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/day6" />
 
-        <!--<Button-->
-            <!--android:id="@+id/event"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="50dp"-->
-            <!--android:layout_marginLeft="50dp"-->
-            <!--android:layout_marginTop="75dp"-->
-            <!--android:layout_marginEnd="50dp"-->
-            <!--android:layout_marginRight="50dp"-->
-            <!--android:background="@drawable/transparent_bg_bordered_button"-->
-            <!--android:drawableEnd="@drawable/arrow_right_light_grey"-->
-            <!--android:drawableRight="@drawable/arrow_right_light_grey"-->
-            <!--android:textAllCaps="false"-->
-            <!--android:gravity="start|center_vertical"-->
-            <!--android:paddingTop="16dp"-->
-            <!--android:paddingBottom="16dp"-->
-            <!--android:paddingLeft="8dp"-->
-            <!--android:paddingRight="8dp"-->
-            <!--android:text="@string/event"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

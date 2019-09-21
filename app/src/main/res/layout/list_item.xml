@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="100dp"
+    android:layout_marginRight="100dp"
+    android:layout_marginEnd="100dp"
+    android:layout_marginLeft="100dp">
+
+    <TextView
+        android:id="@+id/expandedListItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/transparent_bg_expandable_bordered"
+        android:padding="10dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+</LinearLayout>
