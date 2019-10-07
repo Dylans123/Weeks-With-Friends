@@ -176,6 +176,9 @@ public class FriendsWeekActivity extends AppCompatActivity {
                                     ++count;
                                 }
                             }
+                            if (dayOneId == R.id.day7) {
+                                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                            }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

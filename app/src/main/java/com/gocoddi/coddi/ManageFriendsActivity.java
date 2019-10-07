@@ -87,9 +87,14 @@ public class ManageFriendsActivity extends AppCompatActivity {
                             set.applyTo(layout);
                         } else {
                             System.out.println("stuff was there");
+                            int count = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String email = document.getString("email");
                                 expandableListDetail.put(email, options);
+                                ++count;
+                                if(count == task.getResult().size()) {
+                                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                                }
                             }
                         }
                         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
