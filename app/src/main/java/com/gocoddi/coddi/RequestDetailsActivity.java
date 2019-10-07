@@ -41,6 +41,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
     private String id;
     private Map<String, Object> info;
     private String friendId;
+    private String emailText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,9 @@ public class RequestDetailsActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         friendId = this.getIntent().getStringExtra("id");
+        emailText = this.getIntent().getStringExtra("email");
         email = (TextView)findViewById(R.id.email);
-        email.setText(friendId);
+        email.setText(emailText);
 
         info = new HashMap<>();
         info.put("confirmed", true);
@@ -133,7 +135,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
                             }
                         };
                     });
-                Intent i = new Intent(getApplicationContext(), FriendsActivity.class);
+                finish();
+                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(i);
             }
         });

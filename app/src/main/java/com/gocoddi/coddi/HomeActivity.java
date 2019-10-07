@@ -60,10 +60,8 @@ public class HomeActivity extends AppCompatActivity {
         dayList = dayHelper();
 
         for(int i = 0; i < dateList.size(); ++i) {
-            System.out.println(dateList.get(i));
             initEvents(dateList.get(i));
         }
-
     }
 
     private void initEvents(final String date) {
@@ -93,16 +91,12 @@ public class HomeActivity extends AppCompatActivity {
 
                                 if (dayOneId != R.id.day7) {
                                     set.connect(event.getId(), ConstraintSet.TOP, dayOneId, ConstraintSet.BOTTOM, 0);
-//                                    set.connect(event.getId(), ConstraintSet.BOTTOM, dayTwoId, ConstraintSet.TOP, 0);
                                     set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
                                     set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-//                                    set.connect(dayTwoId, ConstraintSet.TOP, event.getId(), ConstraintSet.BOTTOM, 0);
                                 } else {
                                     set.connect(event.getId(), ConstraintSet.TOP, dayOneId, ConstraintSet.BOTTOM, 0);
                                     set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
                                     set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-//                                    set.clear(dayTwoId, ConstraintSet.TOP);
-//                                    set.connect(dayTwoId, ConstraintSet.TOP, event.getId(), ConstraintSet.BOTTOM, 0);
                                 }
                                 set.applyTo(layout);
                             } else {
@@ -149,16 +143,11 @@ public class HomeActivity extends AppCompatActivity {
                                         set.connect(event.getId(), ConstraintSet.TOP, dayOneId, ConstraintSet.BOTTOM, 0);
                                         set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
                                         set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-//                                        set.clear(dayTwoId, ConstraintSet.TOP);
-//                                        set.connect(dayTwoId, ConstraintSet.TOP, event.getId(), ConstraintSet.BOTTOM, 0);
                                     }
                                     else if (previous != 0 && dayOneId == R.id.day7) {
                                         set.connect(event.getId(), ConstraintSet.TOP, previous, ConstraintSet.BOTTOM, 0);
                                         set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
                                         set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-//                                        set.connect(event.getId(), ConstraintSet.BOTTOM, R.id.layout, ConstraintSet.BOTTOM, 0);
-//                                        set.clear(dayTwoId, ConstraintSet.TOP);
-//                                        set.connect(dayTwoId, ConstraintSet.TOP, event.getId(), ConstraintSet.BOTTOM, 0);
                                     }
                                     else {
                                         set.connect(event.getId(), ConstraintSet.TOP, previous, ConstraintSet.BOTTOM, 0);
@@ -173,6 +162,9 @@ public class HomeActivity extends AppCompatActivity {
                                     previous = count;
                                     ++count;
                                 }
+                            }
+                            if (dayOneId == R.id.day7) {
+                                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -244,7 +236,6 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
