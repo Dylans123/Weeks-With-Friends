@@ -1,31 +1,22 @@
 package com.gocoddi.coddi;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,10 +26,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private static final String TAG = "YERRR";
-    private FirebaseFirestore db;
     private FirebaseAuth auth;
-    private FirebaseUser user;
     private List<String> dateList = new ArrayList<>();
     private List<String> dayList = new ArrayList<>();
 
@@ -50,127 +38,29 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-
-        initDays();
 
         dateList = dateHelper();
         dayList = dayHelper();
 
+        int[] dayFragments = {R.id.day1Fragment, R.id.day2Fragment, R.id.day3Fragment, R.id.day4Fragment, R.id.day5Fragment, R.id.day6Fragment, R.id.day7Fragment};
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         for(int i = 0; i < dateList.size(); ++i) {
-            initEvents(dateList.get(i));
+            Bundle bundle = new Bundle();
+            String date = dateList.get(i);
+            bundle.putString("date", date);
+            Fragment dayFrag = DayFragment.newInstance(dateList.get(i));
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(dayFragments[i], dayFrag);
+            transaction.commit();
+            System.out.println(i);
         }
-    }
-
-    private void initEvents(final String date) {
-        db.collection("events").document(user.getUid()).collection(date)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            int previous = 0;
-                            int count = Integer.parseInt(date.substring(3,5)) * 100;
-                            int dayOneId = idHelper(dateList.indexOf(date) + 1);
-                            int dayTwoId = idHelper(dateList.indexOf(date) + 2);
-                            if(task.getResult().isEmpty()) {
-                                ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.layout);
-                                ConstraintLayout.LayoutParams lparams = new ConstraintLayout.LayoutParams(
-                                        ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                                lparams.setMargins(0, 0, 0, 0);
-                                TextView event = new TextView(HomeActivity.this);
-                                event.setId(count);
-                                event.setText("You haven't scheduled any events for this day");
-                                event.setLayoutParams(lparams);
-                                layout.addView(event);
-
-                                ConstraintSet set = new ConstraintSet();
-                                set.clone(layout);
-
-                                if (dayOneId != R.id.day7) {
-                                    set.connect(event.getId(), ConstraintSet.TOP, dayOneId, ConstraintSet.BOTTOM, 0);
-                                    set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-                                    set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-                                } else {
-                                    set.connect(event.getId(), ConstraintSet.TOP, dayOneId, ConstraintSet.BOTTOM, 0);
-                                    set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-                                    set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-                                }
-                                set.applyTo(layout);
-                            } else {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    final String title = document.getString("title");
-                                    final String desc = document.getString("description");
-                                    final String date = document.getString("date");
-                                    final String id = document.getId();
-                                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.layout);
-                                    ConstraintLayout.LayoutParams lparams = new ConstraintLayout.LayoutParams(
-                                            ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                                    lparams.setMargins(100, 0, 100, 0);
-                                    Button event = new Button(HomeActivity.this);
-                                    event.setText(title);
-                                    event.setId(count);
-                                    event.setBackground(ContextCompat.getDrawable(HomeActivity.this, R.drawable.transparent_bg_bordered_button));
-                                    event.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_right_light_grey, 0);
-                                    event.setLayoutParams(lparams);
-                                    layout.addView(event);
-
-                                    event.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent i = new Intent(getApplicationContext(), EventDetailsActivity.class);
-                                            i.putExtra("title", title);
-                                            i.putExtra("desc", desc);
-                                            i.putExtra("date", date);
-                                            i.putExtra("id", id);
-                                            startActivity(i);
-                                        }
-                                    });
-
-                                    ConstraintSet set = new ConstraintSet();
-                                    set.clone(layout);
-
-                                    if(previous == 0 && dayOneId != R.id.day7) {
-                                        set.connect(event.getId(), ConstraintSet.TOP, dayOneId, ConstraintSet.BOTTOM, 0);
-                                        set.connect(event.getId(), ConstraintSet.BOTTOM, dayTwoId, ConstraintSet.TOP, 0);
-                                        set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-                                        set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-                                        set.connect(dayTwoId, ConstraintSet.TOP, event.getId(), ConstraintSet.BOTTOM, 0);
-                                    }
-                                    else if (previous == 0 && dayOneId == R.id.day7) {
-                                        set.connect(event.getId(), ConstraintSet.TOP, dayOneId, ConstraintSet.BOTTOM, 0);
-                                        set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-                                        set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-                                    }
-                                    else if (previous != 0 && dayOneId == R.id.day7) {
-                                        set.connect(event.getId(), ConstraintSet.TOP, previous, ConstraintSet.BOTTOM, 0);
-                                        set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-                                        set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-                                    }
-                                    else {
-                                        set.connect(event.getId(), ConstraintSet.TOP, previous, ConstraintSet.BOTTOM, 0);
-                                        set.clear(previous, ConstraintSet.BOTTOM);
-                                        set.connect(event.getId(), ConstraintSet.BOTTOM, dayTwoId, ConstraintSet.TOP, 0);
-                                        set.connect(event.getId(), ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-                                        set.connect(event.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-                                        set.clear(dayTwoId, ConstraintSet.TOP);
-                                        set.connect(dayTwoId, ConstraintSet.TOP, event.getId(), ConstraintSet.BOTTOM, 0);
-                                    }
-                                    set.applyTo(layout);
-                                    previous = count;
-                                    ++count;
-                                }
-                            }
-                            if (dayOneId == R.id.day7) {
-                                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        System.out.println("Executing the transactions now");
+        fragmentManager.executePendingTransactions();
+        System.out.println("Hiding the loading panel and intializing the days now!");
+        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
+        initDays();
     }
 
     private void initDays() {
@@ -196,6 +86,7 @@ public class HomeActivity extends AppCompatActivity {
             Calendar calendar = new GregorianCalendar();
             calendar.add(Calendar.DATE, i-1);
             String currentDate = date.format(calendar.getTime());
+            System.out.println(currentDate);
             dates.add(currentDate);
         }
         return dates;

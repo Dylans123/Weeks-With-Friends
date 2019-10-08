@@ -75,7 +75,23 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintBottom_toTopOf="@+id/day1Fragment" />
+
+        <fragment
+            android:id="@+id/day1Fragment"
+            android:name="com.gocoddi.coddi.DayFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/day2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day1" />
 
         <TextView
             android:id="@+id/day2"
@@ -83,12 +99,27 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginLeft="56dp"
-            android:layout_marginTop="20dp"
             android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/day2Fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day1" />
+            app:layout_constraintTop_toBottomOf="@+id/day1Fragment" />
+
+        <fragment
+            android:id="@+id/day2Fragment"
+            android:name="com.gocoddi.coddi.DayFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/day3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day2" />
 
         <TextView
             android:id="@+id/day3"
@@ -96,12 +127,27 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginLeft="56dp"
-            android:layout_marginTop="20dp"
             android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/day3Fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day2" />
+            app:layout_constraintTop_toBottomOf="@+id/day2Fragment" />
+
+        <fragment
+            android:id="@+id/day3Fragment"
+            android:name="com.gocoddi.coddi.DayFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/day4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day3" />
 
         <TextView
             android:id="@+id/day4"
@@ -109,12 +155,27 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginLeft="56dp"
-            android:layout_marginTop="20dp"
             android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/day4Fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day3" />
+            app:layout_constraintTop_toBottomOf="@+id/day3Fragment" />
+
+        <fragment
+            android:id="@+id/day4Fragment"
+            android:name="com.gocoddi.coddi.DayFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/day5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day4" />
 
         <TextView
             android:id="@+id/day5"
@@ -122,12 +183,27 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginLeft="56dp"
-            android:layout_marginTop="20dp"
             android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/day5Fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day4" />
+            app:layout_constraintTop_toBottomOf="@+id/day4Fragment" />
+
+        <fragment
+            android:id="@+id/day5Fragment"
+            android:name="com.gocoddi.coddi.DayFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/day6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day5" />
 
         <TextView
             android:id="@+id/day6"
@@ -135,12 +211,26 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginLeft="56dp"
-            android:layout_marginTop="20dp"
             android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/day6Fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day5" />
+            app:layout_constraintTop_toBottomOf="@+id/day5Fragment" />
+
+        <fragment
+            android:id="@+id/day6Fragment"
+            android:name="com.gocoddi.coddi.DayFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day6" />
 
         <TextView
             android:id="@+id/day7"
@@ -148,12 +238,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginLeft="56dp"
-            android:layout_marginTop="20dp"
             android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/day7Fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day6" />
+            app:layout_constraintTop_toBottomOf="@+id/day6Fragment" />
+
+        <fragment
+            android:id="@+id/day7Fragment"
+            android:name="com.gocoddi.coddi.DayFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
