@@ -1,27 +1,23 @@
 package com.gocoddi.coddi;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
-    private FirebaseFirestore db;
+    private DatabaseReference db;
     private FirebaseAuth auth;
     private FirebaseUser user;
 
@@ -43,7 +39,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        db = FirebaseFirestore.getInstance();
+        db = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
@@ -64,20 +60,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            db.collection("events").document(user.getUid()).collection(date).document(id)
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error deleting document", e);
-                        }
-                    });
+            db.child("events").child(user.getUid()).child(date).child(id).removeValue();
             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(i);
             }
